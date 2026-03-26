@@ -1,0 +1,42 @@
+{
+  "name": "ats-cv-builder-suite",
+  "version": "1.2.0",
+  "description": "Professional CV & Resume Builder Suite with ATS Optimization for Indian Job Seekers",
+  "keywords": [
+    "cv-builder",
+    "resume-builder",
+    "ats-optimization",
+    "job-search",
+    "career-tools"
+  ],
+  "author": "ATS CV Team",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/ats-cv-builder"
+  },
+  "homepage": "https://ats-cv-builder.example.com",
+  "scripts": {
+    "start": "python -m http.server 8000",
+    "build": "echo 'No build required - static files ready'",
+    "deploy": "echo 'Deploy to your hosting provider'"
+  },
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "files": [
+    "index.html",
+    "cv.html",
+    "resume.html",
+    "res.html",
+    "README.md",
+    "package.json"
+  ],
+  "browserslist": [
+    "last 2 versions",
+    "> 1%"
+  ]
+}

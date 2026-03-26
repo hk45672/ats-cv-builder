@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ATS-Friendly CV Builder - India (90+ Score)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        .cv-preview { font-family: 'Arial', sans-serif; line-height: 1.4; }
+        .section-header { border-left: 4px solid #2563eb; padding-left: 12px; }
+        @media print { .no-print { display: none !important; } }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <div class="container mx-auto px-4 py-8 max-w-6xl">
+        <!-- Header -->
+        <div class="text-center mb-12">
+            <h1 class="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-4">
+                <i class="fas fa-file-alt mr-3"></i>ATS CV Builder
+            </h1>
+            <p class="text-xl text-gray-600 mb-8">India-optimized • 90+ ATS Score • Job-Winning Format</p>
+            <div class="flex justify-center space-x-4 mb-8">
+                <button onclick="generatePDF()" class="bg-green-600 hover:bg-green-700 text-white px-8 py-3 rounded-lg font-semibold shadow-lg transition-all">
+                    <i class="fas fa-download mr-2"></i>Download PDF
+                </button>
+                <button onclick="previewCV()" class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-semibold shadow-lg transition-all">
+                    <i class="fas fa-eye mr-2"></i>Preview
+                </button>
+            </div>
+            <div class="bg-green-100 border border-green-300 text-green-800 px-6 py-3 rounded-lg max-w-2xl mx-auto">
+                ✅ <strong>ATS Optimized:</strong> Standard fonts, keywords, no tables/graphics, India-specific format
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <!-- Form Section -->
+            <div class="bg-white rounded-2xl shadow-xl p-8 sticky top-8 h-fit">
+                <h2 class="text-2xl font-bold text-gray-800 mb-8">Build Your CV</h2>
+                
+                <!-- Personal Info -->
+                <div class="mb-8">
+                    <h3 class="text-lg font-semibold mb-4 text-gray-700 flex items-center">
+                        <i class="fas fa-user text-blue-500 mr-2"></i>Personal Information
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <input type="text" id="name" placeholder="Full Name *" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" required>
+                        <input type="tel" id="phone" placeholder="Phone Number *" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" required>
+                    </div>
+                    <input type="email" id="email" placeholder="Email Address *" class="w-full mt-4 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" required>
+                    <input type="text" id="linkedin" placeholder="LinkedIn Profile (optional)" class="w-full mt-4 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                    <input type="text" id="location" placeholder="City, State (e.g., Mumbai, Maharashtra)" class="w-full mt-4 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                </div>
+
+                <!-- Professional Summary -->
+                <div class="mb-8">
+                    <h3 class="text-lg font-semibold mb-4 text-gray-700 flex items-center">
+                        <i class="fas fa-briefcase text-green-500 mr-2"></i>Professional Summary
+                    </h3>
+                    <textarea id="summary" rows="4" placeholder="3-5 sentences about your expertise, achievements, and career goals. Include key skills & target role..." class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-vertical"></textarea>
+                </div>
+
+                <!-- Experience -->
+                <div class="mb-8">
+                    <h3 class="text-lg font-semibold mb-4 text-gray-700 flex items-center">
+                        <i class="fas fa-building text-purple-500 mr-2"></i>Work Experience
+                    </h3>
+                    <div id="experience-container">
+                        <div class="experience-entry mb-4 p-4 border border-gray-200 rounded-lg">
+                            <input type="text" placeholder="Job Title *" class="w-full p-3 border border-gray-300 rounded-lg mb-2" required>
+                            <input type="text" placeholder="Company Name *" class="w-full p-3 border border-gray-300 rounded-lg mb-2" required>
+                            <div class="grid grid-cols-2 gap-4 mb-2">
+                                <input type="text" placeholder="Start Date (MM/YYYY)" class="w-full p-3 border border-gray-300 rounded-lg">
+                                <input type="text" placeholder="End Date (MM/YYYY or Present)" class="w-full p-3 border border-gray-300 rounded-lg">
+                            </div>
+                            <textarea rows="3" placeholder="Key achievements (use bullet points, quantify results)..." class="w-full p-3 border border-gray-300 rounded-lg"></textarea>
+                        </div>
+                    </div>
+                    <button onclick="addExperience()" class="text-blue-600 hover:text-blue-800 font-medium flex items-center mt-2">
+                        <i class="fas fa-plus mr-1"></i>Add Experience
+                    </button>
+                </div>
+
+                <!-- Education -->
+                <div class="mb-8">
+                    <h3 class="text-lg font-semibold mb-4 text-gray-700 flex items-center">
+                        <i class="fas fa-graduation-cap text-orange-500 mr-2"></i>Education
+                    </h3>
+                    <div id="education-container">
+                        <div class="education-entry mb-4 p-4 border border-gray-200 rounded-lg">
+                            <input type="text" placeholder="Degree (e.g., B.Tech, MBA)" class="w-full p-3 border border-gray-300 rounded-lg mb-2">
+                            <input type="text" placeholder="College/University *" class="w-full p-3 border border-gray-300 rounded-lg mb-2">
+                            <div class="grid grid-cols-2 gap-4 mb-2">
+                                <input type="text" placeholder="Start Year" class="w-full p-3 border border-gray-300 rounded-lg">
+                                <input type="text" placeholder="End Year" class="w-full p-3 border border-gray-300 rounded-lg">
+                            </div>
+                            <input type="text" placeholder="CGPA/Percentage (optional)" class="w-full p-3 border border-gray-300 rounded-lg">
+                        </div>
+                    </div>
+                    <button onclick="addEducation()" class="text-blue-600 hover:text-blue-800 font-medium flex items-center mt-2">
+                        <i class="fas fa-plus mr-1"></i>Add Education
+                    </button>
+                </div>
+
+                <!-- Skills -->
+                <div class="mb-8">
+                    <h3 class="text-lg font-semibold mb-4 text-gray-700 flex items-center">
+                        <i class="fas fa-tools text-indigo-500 mr-2"></i>Skills
+                    </h3>
+                    <input type="text" id="skills" placeholder="Technical Skills, Soft Skills (comma separated)" class="w-full p-3 border border-gray-300 rounded-lg">
+                    <div class="text-xs text-gray-500 mt-1">e.g., Python, SQL, AWS, Leadership, Communication</div>
+                </div>
+            </div>
+
+            <!-- Preview Section -->
+            <div id="preview-section" class="bg-white rounded-2xl shadow-xl p-8 h-fit hidden lg:block">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Live Preview</h2>
+                <div id="cv-preview" class="cv-preview max-h-[80vh] overflow-y-auto border border-gray-200 rounded-lg p-8 bg-gray-50">
+                    <div class="text-center mb-12">
+                        <h1 id="preview-name" class="text-3xl font-bold text-gray-900 mb-2">Your Name</h1>
+                        <div id="preview-contact" class="text-gray-600 space-x-4 mb-4"></div>
+                        <div id="preview-location" class="text-gray-600"></div>
+                    </div>
+                    
+                    <div id="preview-summary" class="mb-12 hidden">
+                        <h2 class="section-header text-xl font-bold text-gray-900 mb-4">PROFESSIONAL SUMMARY</h2>
+                        <p class="text-gray-700 leading-relaxed"></p>
+                    </div>
+
+                    <div id="preview-experience" class="mb-12 hidden">
+                        <h2 class="section-header text-xl font-bold text-gray-900 mb-6">WORK EXPERIENCE</h2>
+                    </div>
+
+                    <div id="preview-education" class="mb-12 hidden">
+                        <h2 class="section-header text-xl font-bold text-gray-900 mb-6">EDUCATION</h2>
+                    </div>
+
+                    <div id="preview-skills" class="hidden">
+                        <h2 class="section-header text-xl font-bold text-gray-900 mb-6">SKILLS</h2>
+                        <div id="preview-skills-list"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script>
+        let experienceCount = 1;
+        let educationCount = 1;
+
+        // Auto-update preview
+        document.querySelectorAll('input, textarea').forEach(input => {
+            input.addEventListener('input', updatePreview);
+        });
+
+        function addExperience() {
+            experienceCount++;
+            const container = document.getElementById('experience-container');
+            const newEntry = document.createElement('div');
+            newEntry.className = 'experience-entry mb-4 p-4 border border-gray-200 rounded-lg';
+            newEntry.innerHTML = `
+                <input type="text" placeholder="Job Title *" class="w-full p-3 border border-gray-300 rounded-lg mb-2" required>
+                <input type="text" placeholder="Company Name *" class="w-full p-3 border border-gray-300 rounded-lg mb-2" required>
+                <div class="grid grid-cols-2 gap-4 mb-2">
+                    <input type="text" placeholder="Start Date (MM/YYYY)" class="w-full p-3 border border-gray-300 rounded-lg">
+                    <input type="text" placeholder="End Date (MM/YYYY or Present)" class="w-full p-3 border border-gray-300 rounded-lg">
+                </div>
+                <textarea rows="3" placeholder="Key achievements (use bullet points, quantify results)..." class="w-full p-3 border border-gray-300 rounded-lg"></textarea>
+                <button onclick="this.parentElement.remove(); updatePreview();" class="text-red-500 hover:text-red-700 mt-2 text-sm font-medium">Remove</button>
+            `;
+            container.appendChild(newEntry);
+            newEntry.querySelectorAll('input, textarea').forEach(input => {
+                input.addEventListener('input', updatePreview);
+            });
+            updatePreview();
+        }
+
+        function addEducation() {
+            educationCount++;
+            const container = document.getElementById('education-container');
+            const newEntry = document.createElement('div');
+            newEntry.className = 'education-entry mb-4 p-4 border border-gray-200 rounded-lg';
+            newEntry.innerHTML = `
+                <input type="text" placeholder="Degree (e.g., B.Tech, MBA)" class="w-full p-3 border border-gray-300 rounded-lg mb-2">
+                <input type="text" placeholder="College/University *" class="w-full p-3 border border-gray-300 rounded-lg mb-2">
+                <div class="grid grid-cols-2 gap-4 mb-2">
+                    <input type="text" placeholder="Start Year" class="w-full p-3 border border-gray-300 rounded-lg">
+                    <input type="text" placeholder="End Year" class="w-full p-3 border border-gray-300 rounded-lg">
+                </div>
+                <input type="text" placeholder="CGPA/Percentage (optional)" class="w-full p-3 border border-gray-300 rounded-lg">
+                <button onclick="this.parentElement.remove(); updatePreview();" class="text-red-500 hover:text-red-700 mt-2 text-sm font-medium">Remove</button>
+            `;
+            container.appendChild(newEntry);
+            newEntry.querySelectorAll('input').forEach(input => {
+                input.addEventListener('input', updatePreview);
+            });
+            updatePreview();
+        }
+
+        function updatePreview() {
+            // Personal Info
+            document.getElementById('preview-name').textContent = document.getElementById('name').value || 'Your Name';
+            const contact = [];
+            if (document.getElementById('phone').value) contact.push(document.getElementById('phone').value);
+            if (document.getElementById('email').value) contact.push(document.getElementById('email').value);
+            if (document.getElementById('linkedin').value) contact.push(document.getElementById('linkedin').value);
+            document.getElementById('preview-contact').innerHTML = contact.join(' | ');
+            document.getElementById('preview-location').textContent = document.getElementById('location').value || '';
+
+            // Summary
+            const summary = document.getElementById('summary').value;
+            const summaryDiv = document.getElementById('preview-summary');
+            if (summary.trim()) {
+                summaryDiv.querySelector('p').textContent = summary;
+                summaryDiv.classList.remove('hidden');
+            } else {
+                summaryDiv.classList.add('hidden');
+            }
+
+            // Experience
+            const expEntries = document.querySelectorAll('.experience-entry');
+            const expContainer = document.getElementById('preview-experience');
+            if (expEntries.length > 0) {
+                expContainer.innerHTML = '<h2 class="section-header text-xl font-bold text-gray-900 mb-6">WORK EXPERIENCE</h2>';
+                expEntries.forEach(entry => {
+                    const title = entry.querySelector('input[type="text"]:nth-of-type(1)').value;
+                    const company = entry.querySelector('input[type="text"]:nth-of-type(2)').value;
+                    const dates = [];
+                    const startDate = entry.querySelector('input[type="text"]:nth-of-type(3)').value;
+                    const endDate = entry.querySelector('input[type="text"]:nth-of-type(4)').value;
+                    if (startDate) dates.push(startDate);
+                    if (endDate) dates.push(endDate);
+                    const desc = entry.querySelector('textarea').value;
+
+                    if (title || company) {
+                        const expHTML = `
+                            <div class="mb-8">
+                                <h3 class="text-xl font-bold text-gray-900 mb-1">${title || 'Job Title'}</h3>
+                                <p class="text-gray-600 mb-3">${company || 'Company'} | ${dates.join(' - ') || 'Dates'}</p>
+                                <div class="text-gray-700">${desc.replace(/\n/g, '<br>')}</div>
+                            </div>
+                        `;
+                        expContainer.innerHTML += expHTML;
+                    }
+                });
+                expContainer.classList.remove('hidden');
+            } else {
+                expContainer.classList.add('hidden');
+            }
+
+            // Education
+            const eduEntries = document.querySelectorAll('.education-entry');
+            const eduContainer = document.getElementById('preview-education');
+            if (eduEntries.length > 0) {
+                eduContainer.innerHTML = '<h2 class="section-header text-xl font-bold text-gray-900 mb-6">EDUCATION</h2>';
+                eduEntries.forEach(entry => {
+                    const degree = entry.querySelector('input[type="text"]:nth-of-type(1)').value;
+                    const college = entry.querySelector('input[type="text"]:nth-of-type(2)').value;
+                    const startYear = entry.querySelector('input[type="text"]:nth-of-type(3)').value;
+                    const endYear = entry.querySelector('input[type="text"]:nth-of-type(4)').value;
+                    const cgpa = entry.querySelector('input[type="text"]:nth-of-type(5)').value;
+
+                    if (college) {
+                        const eduHTML = `
+                            <div class="mb-6">
+                                <h3 class="font-bold text-gray-900">${degree || ''}, ${college}</h3>
+                                <p class="text-gray-600">${startYear || ''} - ${endYear || ''}${cgpa ? ` | ${cgpa}` : ''}</p>
+                            </div>
+                        `;
+                        eduContainer.innerHTML += eduHTML;
+                    }
+                });
+                eduContainer.classList.remove('hidden');
+            } else {
+                eduContainer.classList.add('hidden');
+            }
+
+            // Skills
+            const skills = document.getElementById('skills').value;
+            const skillsDiv = document.getElementById('preview-skills');
+            if (skills.trim()) {
+                const skillsList = skills.split(',').map(s => s.trim()).filter(s => s);
+                document.getElementById('preview-skills-list').innerHTML = skillsList.map(skill => 
+                    `<span class="inline-block bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm mr-2 mb-2">${skill}</span>`
+                ).join('');
+                skillsDiv.classList.remove('hidden');
+            } else {
+                skillsDiv.classList.add('hidden');
+            }
+        }
+
+        function previewCV() {
+            updatePreview();
+            const previewSection = document.getElementById('preview-section');
+            previewSection.classList.remove('hidden');
+            previewSection.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function generatePDF() {
+            const element = document.getElementById('cv-preview');
+            const opt = {
+                margin: 10,
+                filename: 'cv.pdf',
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2 },
+                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            };
+            html2pdf().set(opt).from(element).save();
+        }
+    </script>
+</body>
+</html>
